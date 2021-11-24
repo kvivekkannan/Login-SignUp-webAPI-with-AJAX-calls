@@ -1,0 +1,35 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Log-in / Sign Up</title>
+    <link href="~/Content/main.css" rel="stylesheet" />
+</head>
+<body style="background-color:slategray">
+    <div class="contentWrapper">
+        <div class="space60"></div>
+        <div class="space60"></div>
+        <div class="baseWrapper">
+            <div class="space20"></div>
+            <h2 class="introText">CHOOSE YOUR ACTION TO PROCEED</h2>
+            <div class="space20"></div>
+            <div class="actionContainer">
+                <div class="col-md-offset-2 col-md-10">
+                    <a class="clsButton inputStyle" href="@Url.Action("Login","Account")">LOG-IN</a>
+                </div>
+                <div class="col-md-offset-2 col-md-10" style="width:60px;"></div>
+                <div class="col-md-offset-2 col-md-10">
+                    <a class="clsButton inputStyle" href="@Url.Action("SignUp","Account")">SIGN-UP</a>
+                </div>
+            </div>
+            <div class="space40"></div>
+        </div>
+    </div>    
+</body>
+</html>

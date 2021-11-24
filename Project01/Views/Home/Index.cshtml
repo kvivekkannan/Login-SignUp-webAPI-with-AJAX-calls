@@ -1,0 +1,58 @@
+﻿@model IEnumerable<Project01.Models.UserDetails>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+}
+
+<h2>List of User Accounts</h2>
+
+<p>
+    <a class="actionBtn" style="height: 45px; width: 145px; padding-top: 10px;" href="@Url.Action("SignUp","Account")">Create New User</a>
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LastName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EmailAddress)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UserName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ContactNumber)
+        </th>
+        <th>User Actions</th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.FirstName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LastName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EmailAddress)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UserName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ContactNumber)
+        </td>
+        <td>
+            <a class="actionBtn" style="height: 35px !important;width: 83px !important;padding-top: 7px !important;" href="@Url.Action("EditUser","Home", new { id = item.UserId})">Edit User</a> |
+            @*<a class="actionBtn" style="height: 35px !important;width: 83px !important;padding-top: 7px !important;" href="@Url.Action("Insert","Home", new { id = item.UserId})">Insert User</a> |*@
+            <a class="actionBtn" style="height: 35px !important;width: 83px !important;padding-top: 7px !important;" href="@Url.Action("DeleteUser","Home", new { id = item.UserId})">Delete User</a>
+        </td>
+    </tr>
+}
+
+</table>

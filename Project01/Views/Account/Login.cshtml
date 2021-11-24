@@ -1,0 +1,138 @@
+﻿@model Project01.Models.UserDetails
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Login</title>
+    <link href="~/Content/main.css" rel="stylesheet" />
+</head>
+<body style="background-color:darkcyan">
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
+
+
+    <div class="contentWrapper">
+        <div class="space60"></div>
+        <div class="space20"></div>
+        <div class="loginWrapper">
+            @using (Html.BeginForm("Login","Account",FormMethod.Post, new { @id = "loginForm"}))
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="form-horizontal">
+                    <div class="space20"></div>
+                    <h4>Enter the credentials to Login</h4>
+                    @*<hr />*@
+                    <div class="loginElementWrapper">
+                        <div class="space30"></div>
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <div class="form-group">
+                            <div> @Html.LabelFor(model => model.UserName, htmlAttributes: new { @class = "control-label col-md-2 textTitle" })</div>
+                            <div class="space10"></div>
+                            <div class="col-md-10">
+                                @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+                                @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control" } })
+                            </div>
+                        </div>
+
+                        <div class="space20"></div>
+                        <div class="form-group">
+                            <div> @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-2 textTitle" })</div>
+                            <div class="space10"></div>
+                            <div class="col-md-10">
+                                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
+                            </div>
+                        </div>
+                        <div class="space30"></div>
+                    </div>
+                </div>
+
+                <div style="display:flex">
+                    @*<input type="submit" value="Log-In" class="clsButton inputStyle" style="padding-top: 14px "/>*@
+                    <button type="submit" id ="loginOnSubmit" class="clsButton inputStyle" style="padding-top: 14px" onclick="loginFormSubmit()">Log-In</button>
+                    <a class="clsButton inputStyle" href="@Url.Action("LoginOrSignUp","Home")">Back</a>
+                </div>
+                <div class="space40"></div>
+            }
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        function loginFormSubmit() {
+            var url = "@Url.Action("Login","Account")";
+            alert("Are you sure to login?");
+            var formData = new FormData();
+            formData.append("username", $("#UserName").val());
+            formData.append("password", $("#Password").val());
+            debugger;
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: formData,
+                //contentType: 'json'
+                
+            }).done(function (response) {
+                if (response)
+                    alert("Successful login");
+                else
+                    alert("Unsuccessful login");
+            });
+        }
+
+
+
+        //$(document).ready(function () {
+        //    $("#LoginForm").submit(function (e) {
+        //        e.preventDefault();
+        //        var apiurl = "https://localhost:44328/api/users/Login";
+        //        var data = {
+        //            Username: $("#Username").val(),
+        //            Password: $("#Password").val(),
+        //        }
+        //        $.ajax({
+        //            url: apiurl,
+        //            type: "POST",
+        //            dataType: 'json',
+        //            data: data,
+        //            success: function (d) {
+        //                alert("Login successful");
+        //            },
+        //            error: function (d) {
+        //                alert("Login unsuccessful");
+        //            }
+        //        });
+        //    });
+        //});
+                //$("#loginOnSubmit").on("click", function () {
+        //    console.log("Login action activated");
+        //    var x = new Object();
+        //    x.username = $("#Username").append();
+        //    x.password = $("#Password").append();
+        //});
+        //document.getElementById("loginOnSubmit").onclick = function () { submitLoginDetails()};
+
+        //function submitLoginDetails() {
+        //    alert("Hi... Login");
+
+        //    var LoginConst = new XMLHttpRequest();
+        //    LoginConst.onreadystatechange = function () {
+        //        if (this.readyState == 4 && this.status == 200) {
+        //            alert(this.responseText);
+        //        }
+        //    }
+        //    LoginConst.open("POST", "~/api/users/details", true);
+        //    var UsernameVal = document.getElementById("UserName").innerHTML;
+        //    var psdVal = document.getElementById("Password").innerHTML;
+        //}
+    </script>
+</body>
+
+</html>
+

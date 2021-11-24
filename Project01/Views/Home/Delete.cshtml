@@ -1,0 +1,105 @@
+﻿@model Project01.Models.UserDetails
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+}
+
+<h2>Delete User</h2>
+
+<h3>Are you sure you want to delete this user account?</h3>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.FirstName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FirstName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LastName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LastName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EmailAddress)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EmailAddress)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UserName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UserName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Password)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Password)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ConfirmPassword)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ConfirmPassword)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ContactNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ContactNumber)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input id="deleteBtn" type="submit" value="Delete" class="btn btn-default" onclick="deleteUser()"/> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>
+<script type="text/javascript">
+    function deleteUser() {
+        var formData = new FormData();
+        formData.append("firstName", $("#FirstName").val());
+        formData.append("lastName", $("#LastName").val());
+        formData.append("emailAddress", $("#EmailAddress").val());
+        formData.append("username", $("#UserName").val());
+        formData.append("password", $("#Password").val());
+        formData.append("confirmPassword", $("#ConfirmPassword").val());
+        formData.append("contactNumber", $("#ContactNumber").val());
+        alert("Are you sure to delete this user?");
+        var url = "https://localhost:44328/api/userDetails/";        
+        $.ajax({
+            type: 'DELETE',
+            url: url,
+            data: formData
+        }).done(function (response) {
+            if (response)
+                alert("User deleted");
+            else
+                alert("Deletion unsuccessful");
+
+        });
+    }   
+</script>

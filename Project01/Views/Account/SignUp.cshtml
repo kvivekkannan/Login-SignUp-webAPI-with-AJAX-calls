@@ -1,0 +1,129 @@
+﻿@model Project01.Models.UserDetails
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>SignUp</title>
+    <link href="~/Content/main.css" rel="stylesheet" />
+</head>
+<body style="background-color:bisque">
+    <div class="contentWrapper">
+        <div class="signUpWrapper">
+            @using (Html.BeginForm("SignUp","Account",FormMethod.Post, new { @id = "signupForm"}))
+            {
+                @Html.AntiForgeryToken()
+                <div class="space10"></div>
+                <h4 class="introText">Create an User profile</h4>
+                <div class="form-horizontal" style="padding-left:20px;">
+                    <h3>@ViewBag.Message</h3>
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "control-label col-md-2 textTitle" })
+                        <div class="col-md-10">
+                            <div class="space10"></div>
+                            @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+                            @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control" } })
+                        </div>
+                    </div>
+                    <div class="space20"></div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.LastName, htmlAttributes: new { @class = "control-label col-md-2 textTitle" })
+                        <div class="col-md-10">
+                            <div class="space10"></div>
+                            @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+                            @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control" } })
+                        </div>
+                    </div>
+                    <div class="space20"></div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.EmailAddress, htmlAttributes: new { @class = "control-label col-md-2 textTitle" })
+                        <div class="space10"></div>
+                        <div class="col-md-10">
+                            @Html.ValidationMessageFor(model => model.EmailAddress, "", new { @class = "text-danger" })
+                            @Html.EditorFor(model => model.EmailAddress, new { htmlAttributes = new { @class = "form-control" } })
+                        </div>
+                    </div>
+                    <div class="space20"></div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.UserName, htmlAttributes: new { @class = "control-label col-md-2 textTitle" })
+                        <div class="space10"></div>
+                        <div class="col-md-10">
+                            @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+                            @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control" } })
+                        </div>
+                    </div>
+                    <div class="space20"></div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-2 textTitle" })
+                        <div class="space10"></div>
+                        <div class="col-md-10">
+                            @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                            @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
+                        </div>
+                    </div>
+                    <div class="space20"></div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.ConfirmPassword, htmlAttributes: new { @class = "control-label col-md-2 textTitle" })
+                        <div class="space10"></div>
+                        <div class="col-md-10">
+                            @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger" })
+                            @Html.EditorFor(model => model.ConfirmPassword, new { htmlAttributes = new { @class = "form-control" } })
+                        </div>
+                    </div>
+                    <div class="space20"></div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.ContactNumber, htmlAttributes: new { @class = "control-label col-md-2 textTitle" })
+                        <div class="space10"></div>
+                        <div class="col-md-10">
+                            @Html.ValidationMessageFor(model => model.ContactNumber, "", new { @class = "text-danger" })
+                            @Html.EditorFor(model => model.ContactNumber, new { htmlAttributes = new { @class = "form-control" } })
+                        </div>
+                    </div>
+                    <div class="space40"></div>
+                </div>
+                <div style="display:flex">
+                    <input type="submit" onclick="signUpFormSubmit()" value="Create User" class="clsButton inputStyle" style="padding-top: 14px " />
+                    <a class="clsButton inputStyle" href="@Url.Action("LoginOrSignUp","Home")" style="text-decoration:none !important">Back</a>
+                </div>
+                <div class="space40"></div>
+            }
+        </div>
+    </div>
+    <script type="text/javascript">
+        function signUpFormSubmit() {
+            alert("Submitting the Sign Up form?");
+            debugger;
+            var url = "https://localhost:44328/api/userDetails/";
+            var formData = new FormData();
+            formData.append("firstName", $("#FirstName").val());
+            formData.append("lastName", $("#LastName").val());
+            formData.append("emailAddress", $("#EmailAddress").val());
+            formData.append("username", $("#UserName").val());
+            formData.append("password", $("#Password").val());
+            formData.append("confirmPassword", $("#ConfirmPassword").val());
+            formData.append("contactNumber", $("#ContactNumber").val());
+            //var serData = formData.Serialize();
+            //alert(serData);
+            $.ajax({
+                type: 'POST',
+                url: url,
+                data: formData
+            }).done(function (response){
+                if (response) {
+                    alert("Submission of form: SUCCESS");
+                }
+                else {
+                    alert("Invalid form submission");
+                }
+            });
+        }        
+    </script>
+    
+</body>
+</html>
