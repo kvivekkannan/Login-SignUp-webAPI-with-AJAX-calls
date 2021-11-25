@@ -13,7 +13,7 @@ namespace Project01.Controllers
     {
         UnitOfWork _unitOfWork = new UnitOfWork(new LoginDbContext());
 
-        string apiBaseAddress = "https://localhost:44328/api/";
+        
         public ActionResult Index()
         {
             return View(_unitOfWork.UserDetailsRepository.GetUserDetails());
@@ -32,9 +32,7 @@ namespace Project01.Controllers
         [HttpPost]
         public ActionResult EditUser(UserDetails user)
         {
-            var id = user.UserId;
-            //_unitOfWork.UserDetailsRepository.EditUserDetails(id, user);
-            //_unitOfWork.Save();
+            var id = user.UserId;            
             var existingUser = _unitOfWork.UserDetailsRepository.GetUserDetailsById(id);
             if (user != null)
             {
@@ -56,13 +54,12 @@ namespace Project01.Controllers
             var user = _unitOfWork.UserDetailsRepository.GetUserDetailsById(id);
             return View(user);
         }
+
         [HttpPost]
-        public ActionResult DeleteUser(UserDetails user)
+        public ActionResult DeleteUserSubmit(int id)
         {
-            var id = user.UserId;
-            //var detail = _unitOfWork.UserDetailsRepository.GetUserDetailsById(id);
             _unitOfWork.UserDetailsRepository.RemoveUserDetailById(id);
-            return RedirectToAction("Index");
+            return RedirectToAction("Index","Home");
         }
 
 

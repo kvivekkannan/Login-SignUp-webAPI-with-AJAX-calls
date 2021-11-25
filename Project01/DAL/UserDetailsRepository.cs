@@ -42,6 +42,7 @@ namespace Project01.DAL
         {
             var user = dbcon.userdetails.Find(id);
             dbcon.userdetails.Remove(user);
+            dbcon.SaveChanges();
             //throw new NotImplementedException();
         }
 

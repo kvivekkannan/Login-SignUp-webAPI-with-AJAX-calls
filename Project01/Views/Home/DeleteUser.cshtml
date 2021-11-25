@@ -89,23 +89,19 @@
             var id = $(this).attr('data-model-id');
             console.log(id);
             var msg = confirm("Are you sure to confirm deleting this record?");
-            debugger;
+            //debugger;
             if (msg) {
                 $.ajax({
                     type: "POST",
-                    url: "https://localhost:44328/api/UserDetails/DeleteUserDetails?id=" + id,
-                    data: { id: id },
-                    success: function(data){
-                        alert("Deleted successfully");
-                    },
-                    error: function(data){ alert("Deletion unsuccesful"); }
-                })
+                    url: "https://localhost:44328/Home/DeleteUserSubmit?id=" + id,
+                    data: { id: id }
+                });
             }
 
         })
 
     })
-
+    //"https://localhost:44328/api/UserDetails/DeleteUserDetails?id=" + id
     //function deleteUserSubmit() {
     //    var url = "https://localhost:44328/api/UserDetails/DeleteUser";
     //    var id = $(this).data("model-id");
@@ -121,7 +117,7 @@
     //            alert("Deletion unsuccessful");
     //        }
 
-    //    })    
+    //    })
     //}
     //$("#deleteConfirmBtn").submit(function () {
     //    var Id = $(this).data("model-id");

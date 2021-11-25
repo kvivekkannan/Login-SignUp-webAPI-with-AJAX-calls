@@ -41,24 +41,27 @@ namespace Project01.Controllers
         {
             if (ModelState.IsValid)
             {
-                using (var newUser = new HttpClient())
-                {
-                    newUser.BaseAddress = new Uri("https://localhost:44328/api/users/");
+                _unitOfWork.UserDetailsRepository.AddUserDetail(user);
+                _unitOfWork.Save();
+                ModelState.Clear();
+                #region commented
+                //using (var newUser = new HttpClient())
+                //{
+                //    newUser.BaseAddress = new Uri("https://localhost:44328/api/userDetails/");
 
-                    var postTask = newUser.PostAsJsonAsync<UserDetails>("SignUp", user);
-                    postTask.Wait();
-                    var result = postTask.Result;
-                    if (result.IsSuccessStatusCode)
-                    {
-                        return RedirectToAction("Index", "Home");
-                    }
-                }
-                ModelState.AddModelError(string.Empty, "Data/Server error. Try again");
-                //_unitOfWork.UserDetailsRepository.AddUserDetail(user);
-                //_unitOfWork.Save();                
-                //ModelState.Clear();
+                //    var postTask = newUser.PostAsJsonAsync<UserDetails>("PostUserDetails", user);
+                //    postTask.Wait();
+                //    var result = postTask.Result;
+                //    if (result.IsSuccessStatusCode)
+                //    {
+                //        return RedirectToAction("Index", "Home");
+                //    }
+                //}
+                //ModelState.AddModelError(string.Empty, "Data/Server error. Try again"); 
+                #endregion
             }
-            return View(user);
+            return RedirectToAction("Index", "Home");
+            //return View(user);
         }
 
         [HttpPost]

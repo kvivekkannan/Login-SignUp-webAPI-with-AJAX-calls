@@ -76,14 +76,13 @@
                 type: "POST",
                 url: url,
                 data: formData,
-                //contentType: 'json'
-                
-            }).done(function (response) {
-                if (response)
+                success: function (formData) {
                     alert("Successful login");
-                else
+                },
+                error: function (formData) {
                     alert("Unsuccessful login");
-            });
+                }
+            })
         }
 
 

@@ -97,12 +97,12 @@ namespace Project01.Controllers.APIControllers
             db.userdetails.Add(userDetails);
             await db.SaveChangesAsync();
 
-            return CreatedAtRoute("DefaultApi", new { id = userDetails.UserId }, userDetails);
+            return Ok();
         }
 
         // DELETE: api/UserDetails/5
         [ResponseType(typeof(UserDetails))]
-        [HttpPost]
+        [HttpGet]
         [Route("api/UserDetails/DeleteUserDetails/{id}")]
         public async Task<IHttpActionResult> DeleteUserDetails(int id)
         {
