@@ -59,6 +59,7 @@ namespace Project01.Controllers
         public ActionResult DeleteUserSubmit(int id)
         {
             _unitOfWork.UserDetailsRepository.RemoveUserDetailById(id);
+            _unitOfWork.Save();
             return RedirectToAction("Index","Home");
         }
 
